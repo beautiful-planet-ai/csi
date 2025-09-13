@@ -1,0 +1,310 @@
+   <div
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "70%" }}
+        >
+          <p className="card-title p-0 m-0">Waste Collection (in TPD)</p>
+          <StackedBarChart
+            // title="Waste Collection (in TPD)"
+            labels={Zones}
+            categories={collection}
+            series={collectionData}
+            // dataSeries={collectionData}
+            dataPointWidth={8}
+            height={200}
+          />
+        </div>
+
+        <div
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "24%" }}
+        >
+          <PieChart
+            categories={sanitationLabels}
+            series={sanitationData}
+            height={220}
+            title="Sanitation Facility"
+            vertical="bottom"
+            horizontal="center"
+            fontSize={10}
+          />
+        </div>
+
+         const Zones = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"];
+  const collection = [
+    "Door-to-door Collection",
+    "Community Bins",
+    "Other Sources",
+  ];
+  const collectionData = [
+    [39, 30, 38, 29, 30],
+    [31, 24, 29, 22, 21],
+    [2, 1, 2, 2, 3],
+  ];
+   const collectionData = [
+     { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
+     { name: "Community Bins", data: [31, 24, 29, 22, 21] },
+     { name: "Other Sources", data: [2, 1, 2, 2, 3] },
+   ];
+
+  const bgColor = getScoreColor(score.WASTE);
+
+    <div className="flex align-items-center justify-content-between w-full">
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
+            }}
+          >
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: bgColor, // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Waste Management
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {score.WASTE}
+              </p>
+            </div>
+          </div>
+          <div className="flex align-items-center justify-content-end gap-2">
+            {/* Button to trigger the OverlayPanel */}
+            <Button
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+              icon="pi pi-filter"
+              onClick={(e) => overlayRef.current.toggle(e)}
+              className="bg-white text-secondary2"
+              raised
+            />
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column align-items-center justify-content-center gap-2 ">
+                  <Dropdown
+                    value={tempZone}
+                    onChange={(e) => setTempZone(e.value)}
+                    options={[
+                      { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                      ...zones.map((div) => ({ label: div, value: div })),
+                    ]}
+                    placeholder="Select Zones"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempYear}
+                    onChange={(e) => setTempYear(e.value)}
+                    options={years.map((year) => ({
+                      label: year,
+                      value: year,
+                    }))}
+                    placeholder="Select Year"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempMonth}
+                    onChange={(e) => setTempMonth(e.value)}
+                    options={monthNames.map((name, index) => ({
+                      label: name, // Display month name
+                      value: index + 1, // Store month number (1-12)
+                    }))}
+                    placeholder="Select Month"
+                    className="w-full"
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-secondary2"
+                    label="Reset"
+                    // icon="pi pi-undo"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleApply}
+                    raised
+                  />
+                </div>
+              </div>
+            </OverlayPanel>
+
+            {username === "admin" && (
+              <>
+                <Button
+                  icon="pi pi-ellipsis-v"
+                  onClick={(e) => menu.current.toggle(e)}
+                  className="bg-primary1"
+                  raised
+                />
+                <Menu model={items} ref={menu} popup />
+                <Upload
+                  visible={uploadDialogVisible}
+                  onHide={hideUploadDialog}
+                  parameter={"waste"}
+                />
+                {/* <WasteModify
+                      waterData={data}
+                      waterSetData={setData}
+                      isOpen={modifyDialogVisible}
+                      onClose={handleCloseModifyDialog}
+                    /> */}
+              </>
+            )}
+            <Button
+              icon="pi pi-file"
+              tooltip="Generate Report"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"waste"}
+                heading={"Waste Management"}
+              />
+            </Dialog>
+          </div>
+        </div>
+
+
+
+          {scoreData && (
+              <div>
+                <p className="text-primary1 font-medium p-0 m-0 text-white text-center">
+                  Score:{" "}
+                  <span className="text-xl font-semibold">{scoreData}</span>
+                </p>
+                <GaugeChart
+                  id="gauge-chart"
+                  // nrOfLevels={3}
+                  percent={scoreData / 100}
+                  colors={scoreRangeColor}
+                  // formatTextValue={formatTextValue}
+                  style={{ width: 150 }}
+                  needleColor="#fff"
+                  needleBaseColor="#fff"
+                  // textColor="#000"
+                  hideText={true}
+                />
+                <p className="p-0 m-0 text-white font-medium p-0 m-0 font-italic text-xs text-right">
+                  {/* *{startMonthYearScore} - {endMonthYearScore}{" "} */}
+                </p>
+              </div>
+            )}
+
+
+            {/* 5: Disposal Data */}
+          <div className="w-full flex flex-column">
+            <h3>Disposal Data</h3>
+            <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
+              {[
+                "Landfill",
+                "Incineration",
+                "Other_Disposal_Methods",
+                "Methane_Recovery",
+              ].map((field, index) => {
+                const customLabels = {
+                  Landfill: "Landfill (MT)",
+                  Incineration: "Incineration (MT)",
+                  Other_Disposal_Methods: "Other Disposal (MT)",
+                  Methane_Recovery: "Methane Recovery (m3)",
+                };
+
+                return (
+                  <div key={index} className="flex flex-column gap-2">
+                    <label className="text-sm text-surface-500 ">
+                      {customLabels[field]}
+                    </label>
+                    <InputText
+                      id={field.toLowerCase()}
+                      value={selectedData?.[field]}
+                      onChange={(e) =>
+                        setSelectedData({
+                          ...selectedData,
+                          [field]: e.target.value,
+                        })
+                      }
+                      placeholder={`Enter ${customLabels[field].toLowerCase()}`}
+                      type={"number"}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 6: Financial and Operational Data */}
+          <div className="w-full flex flex-column">
+            <h3>Financial and Operational Data</h3>
+            <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
+              {[
+                "Operational_Costs",
+                "Revenue_Generated",
+                "Number_of_Employees",
+                "Community_Participation_Rate",
+              ].map((field, index) => {
+                const customLabels = {
+                  Operational_Costs: "Operational Costs ($)",
+                  Revenue_Generated: "Revenue Generated ($)",
+                  Number_of_Employees: "Number of Employees",
+                  Community_Participation_Rate: "Community Participation (%)",
+                };
+
+                return (
+                  <div key={index} className="flex flex-column gap-2">
+                    <label className="text-sm text-surface-500 ">
+                      {customLabels[field]}
+                    </label>
+                    <InputText
+                      id={field.toLowerCase()}
+                      value={selectedData?.[field]}
+                      onChange={(e) =>
+                        setSelectedData({
+                          ...selectedData,
+                          [field]: e.target.value,
+                        })
+                      }
+                      placeholder={`Enter ${customLabels[field].toLowerCase()}`}
+                      type={"number"}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>

@@ -1,0 +1,25 @@
+const score = {
+  NATURE: 77,
+  SOCIETY: 80,
+  ADMIN: 70,
+
+  AQI: 68,
+  TEMP: 93,
+  RAIN: 60,
+  LAND: 76,
+  WATER: 27,
+  WASTE: 35,
+
+  HEALTHCARE: 84,
+  EMPLOYMENT: 58,
+  EDUCATION: 92,
+  TRANSPORT: 33,
+  COMMUNITY: 17,
+  CULTURE: 75,
+
+  DISASTER: 87,
+  ETHICAL: 25,
+  TRANSPARENCY: 43,
+};
+
+export default score;

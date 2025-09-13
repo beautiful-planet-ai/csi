@@ -1,0 +1,146 @@
+.Aqi-zone-map h1 {
+  font-size: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5vw;
+}
+.Aqi-zone-map h2 {
+  font-size: 1vw;
+  display: flex;
+  justify-content: left;
+  color: blue;
+}
+
+.Aqi-zone-map {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  flex-direction: column;
+}
+.line-bar-graph-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 90vw;
+  padding: 2vw;
+}
+
+.line-bar-chart,
+.monthly-trend-chart {
+  flex: 1;
+  margin: 1vw;
+  padding: 2vw;
+  width: 100%;
+}
+
+#backButton {
+  border-radius: 4px;
+  border: none;
+  font-size: 0.8vw;
+  background-color: #1283a5;
+  color: white;
+  cursor: pointer;
+}
+.invisible {
+  display: none;
+}
+.table-container {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  font-size: 0.5vw;
+  width: 67rem;
+  font-weight: 600;
+}
+
+.table-container th,
+.table-container td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 0.1vw;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
+}
+
+.green-bg {
+  background-color: #dbf0fe;
+  color: black;
+}
+
+.yellow-bg {
+  background-color: #add9f6;
+  color: black;
+}
+
+.orange-bg {
+  background-color: #54a8e0;
+  color: black;
+}
+
+.pink-bg {
+  background-color: #459bd4;
+  color: white;
+}
+
+.purple-bg {
+  background-color: #316e96;
+  color: white;
+}
+
+.red-bg {
+  background-color: #0d456a;
+  color: white;
+}
+
+.shade-1 {
+  background-color: #fffed3; /* Beige */
+}
+
+.shade-2 {
+  background-color: #f5e7b2; /* Beige */
+}
+
+.shade-3 {
+  background-color: #f9d689; /* Orange */
+}
+
+.shade-4 {
+  background-color: #e9c46a; /* Orange */
+}
+
+.shade-5 {
+  background-color: #f4a261; /* Red */
+}
+
+.shade-6 {
+  background-color: #e76f51; /* Red */
+}
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.main-graph-pollutant {
+  display: flex;
+  width: 32.5rem;
+  flex-wrap: wrap;
+}
+
+.chart-position {
+  width: 100%;
+}
+
+/* .canvasjs-chart-canvas{
+    position: absolute !important;
+
+  }
+  .canvasjs-chart-toolbar{
+    position: relative !important;
+  } */
+.p-tabview .p-tabview-nav {
+  border: 0 !important;
+}

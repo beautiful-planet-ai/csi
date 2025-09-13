@@ -1,0 +1,101 @@
+/* .p-card .p-card-title{
+        font-size: 1.5rem;
+        font-weight: 600;
+} */
+
+/* .p-orderlist .p-orderlist-controls {
+    display: none;
+} */
+/* .p-datatable .p-datatable-tbody > tr {
+    text-align: center;
+} */
+/* .custom-row .p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.5rem;
+  text-align: center;
+} */
+.red-row {
+  background-color: #ffcccc;
+}
+.bg-green-500 {
+  background-color: #48bb78;
+}
+.bg-yellow-400 {
+  background-color: #f6e05e;
+}
+.bg-orange-600 {
+  background-color: #ed8936;
+}
+.bg-red-500 {
+  background-color: #f56565;
+}
+.bg-red-700 {
+  background-color: #c53030;
+}
+/* Map Container */
+.para-map {
+  width: 35vw;
+  height: 15vw;
+}
+
+.map-container {
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2vw;
+}
+
+.full-map-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+.full-map-container img {
+  height: 25vw;
+  width: 25vw;
+}
+
+/* Image Slider Container */
+.image-slider {
+  background-color: white;
+  padding: 0.1vw;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+/* Legend Styles
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  padding: 0.5vw;
+  font-size: 0.8vw;
+  width: 100%;
+  margin: 1vw;
+}
+
+.legend h3 {
+  margin: 0;
+  font-size: 0.8vw;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+}
+
+.legend span {
+  width: 1vw;
+  height: 1vw;
+  margin-right: 0.5vw;
+  border: 0.1vw solid black;
+} */
+
+/* .canvasjs-chart-canvas{
+    position: relative !important;
+  } */

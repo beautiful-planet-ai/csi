@@ -1,0 +1,313 @@
+     const [tempValues, setTempValues] = useState({
+    location: "Ayodhya - Civil line,Tiny tots school",
+    liveStartDate: new Date(thirtyDaysAgo),
+    liveEndDate: new Date(currentDate),
+  });
+   
+    const overlayRef = useRef(null);
+
+    const [scoreColor, setScoreColor] = useState("#000");
+        // Update the score color based on the calculated score
+     const color = getScoreColor(calculatedScore);
+     setScoreColor(color);
+
+  let highestPollutant = null;
+  let highestValue = -Infinity;
+
+    // Iterate through each pollutant object in the array
+  for (const pollutant of pollutantData) {
+    // Check if the current pollutant's value is greater than the highestValue found so far
+    if (pollutant.value > highestValue) {
+      highestValue = pollutant.value; // Update highestValue
+      highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
+    }
+  }
+  
+  const resetFilters = () => {
+    setSelectedValues({
+      location: "Ayodhya - Civil line,Tiny tots school",
+      liveStartDate: new Date(thirtyDaysAgo),
+      liveEndDate: new Date(currentDate),
+    });
+    setTempValues({
+      location: "Ayodhya - Civil line,Tiny tots school",
+      liveStartDate: new Date(thirtyDaysAgo),
+      liveEndDate: new Date(currentDate),
+    });
+  };
+
+  const handleApply = () => {
+    setSelectedValues({
+      location: tempValues.location,
+      liveStartDate: tempValues.liveStartDate,
+      liveEndDate: tempValues.liveEndDate,
+    });
+    overlayRef.current.hide();
+  }; 
+ 
+ <Button
+                tooltip="Filters"
+                tooltipOptions={{
+                  position: "bottom",
+                }}
+                icon="pi pi-filter"
+                onClick={(e) => overlayRef.current.toggle(e)}
+                className="bg-white text-secondary2"
+                raised
+              />
+              <OverlayPanel
+                ref={overlayRef}
+                style={{ width: "20rem" }}
+                className="p-overlay-panel"
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column">
+                    <label htmlFor="location" className="font-semibold text">
+                      Location
+                    </label>
+                    <Dropdown
+                      value={tempValues.location}
+                      options={locations}
+                      optionLabel="label"
+                      optionValue="value"
+                      onChange={(e) =>
+                        setTempValues({
+                          ...tempValues,
+                          location: e.target.value,
+                        })
+                      }
+                      placeholder="Select Location"
+                    />
+                  </div>
+                  <div className="p-field text-sm flex flex-column">
+                    <label htmlFor="dateRange" className="font-semibold text">
+                      Select Date Range
+                    </label>
+                    <Calendar
+                      id="dateRange"
+                      value={[tempValues.liveStartDate, tempValues.liveEndDate]} // Pass selected date range as an array
+                      onChange={(e) => {
+                        const [newStartDate, newEndDate] = e.value; // Destructure range
+                        setTempValues({
+                          ...tempValues,
+                          liveStartDate: newStartDate,
+                          liveEndDate: newEndDate,
+                        });
+                      }}
+                      selectionMode="range"
+                      showIcon
+                      dateFormat="dd-mm-yy"
+                      placeholder="Select date range"
+                      showButtonBar
+                      hideOnRangeSelection
+                      minDate={minDate}
+                      maxDate={currentDate}
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-secondary2"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleApply}
+                      raised
+                    />
+                  </div>
+                </div>
+              </OverlayPanel>
+
+
+
+                const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
+    const dayAqiData = {};
+
+    fifteenDaysData.forEach((item) => {
+      const { day, aqi } = item;
+      if (!dayAqiData[day]) {
+        dayAqiData[day] = [];
+      }
+      dayAqiData[day].push(aqi);
+    });
+
+    const dayAverages = {};
+    for (const day in dayAqiData) {
+      const dayAQI = dayAqiData[day];
+      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / dayAQI.length;
+      dayAverages[day] = Math.round(average);
+    }
+    return dayAverages;
+  };
+
+  const calculateFifteenDaysHourlyAverages = (fifteenDaysData) => {
+    const hourlyAveragesData = {};
+
+    fifteenDaysData.forEach((item) => {
+      const { time, aqi } = item;
+      if (!hourlyAveragesData[time]) {
+        hourlyAveragesData[time] = [];
+      }
+      hourlyAveragesData[time].push(aqi);
+    });
+
+    const hourlyAverages = {};
+    for (const time in hourlyAveragesData) {
+      const hourlyAQI = hourlyAveragesData[time];
+      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / hourlyAQI.length;
+      hourlyAverages[time] = Math.round(average);
+    }
+    return hourlyAverages;
+  };
+
+  // Function to calculate average AQI for each day of the week
+  const calculateDayAverages = () => {
+    if (!enviroDay || !enviroAQI) {
+      return {};
+    }
+
+    const dayAqiData = {};
+
+    enviroDay.forEach((day, index) => {
+      const aqi = enviroAQI[index];
+      if (!dayAqiData[day]) {
+        dayAqiData[day] = [];
+      }
+      dayAqiData[day].push(aqi);
+    });
+
+    const dayAverages = {};
+    for (const day in dayAqiData) {
+      const dayAQI = dayAqiData[day];
+      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / dayAQI.length;
+      dayAverages[day] = Math.round(average);
+    }
+    return dayAverages;
+  };
+
+  // Function to calculate average AQI for each hour
+  const calculateHourlyAverages = () => {
+    if (!envirotime || !enviroAQI) {
+      return {};
+    }
+
+    // Initialize an array to store the sums and counts for each hour
+    const hourlyAveragesData = {};
+
+    envirotime.forEach((time, index) => {
+      const aqi = enviroAQI[index];
+      if (!hourlyAveragesData[time]) {
+        hourlyAveragesData[time] = [];
+      }
+      hourlyAveragesData[time].push(aqi);
+    });
+
+    const hourlyAverages = {};
+    for (const time in hourlyAveragesData) {
+      const hourlyAQI = hourlyAveragesData[time];
+      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / hourlyAQI.length;
+      hourlyAverages[time] = Math.round(average);
+    }
+    return hourlyAverages;
+  };
+
+
+   <div className="flex bg-white border-round p-2">
+              <div className="flex flex-column w-full">
+                <p className="card-title p-0 m-0">Peak Hours</p>
+                <TabView
+                  activeIndex={activeTable}
+                  onTabChange={(e) => setActiveTable(e.index)}
+                >
+                  <TabPanel header="Day">
+                    {/* Daytime Peak Hours Table */}
+
+                    <DataTable
+                      value={daytimePeakHourFrequencies}
+                      className="overflow-y-auto h-14rem"
+                      headerStyle={{ textAlign: "center" }}
+                      rowClassName={rowClassNameDay}
+                    >
+                      <Column
+                        field="time"
+                        header="Time"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                      <Column
+                        field="frequency"
+                        header="Frequency"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                    </DataTable>
+                  </TabPanel>
+                  <TabPanel header="Night">
+                    {/* Nighttime Peak Hours Table */}
+
+                    <DataTable
+                      value={nighttimePeakHourFrequencies}
+                      className="overflow-y-auto h-14rem"
+                      rowClassName={rowClassNamenight}
+                    >
+                      <Column
+                        field="time"
+                        header="Time"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                      <Column
+                        field="frequency"
+                        header="Frequency"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                    </DataTable>
+                  </TabPanel>
+                </TabView>
+              </div>
+              <div className="flex flex-column sec-theme p-2 gap-1 w-full">
+                <p className="card-title p-0 m-0">Insights</p>
+                <p className="card-text p-0 m-0">
+                  This card helps you understand when the worst air quality
+                  tends to occur by showing the frequency of peak AQI at
+                  different times of the day and night over the selected date
+                  range.
+                </p>
+              </div>
+            </div>
+
+
+            
+      <TimeBasedAQITrend
+        enviroDate={dateArrayData}
+        envirotime={timeArrayData}
+        enviroAQI={AQIArrayData}
+        timePeriod={selectedDateRange}
+        location={selectedValues.location}
+      />
