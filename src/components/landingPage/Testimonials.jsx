@@ -7,7 +7,7 @@ import "./Landing.css";
 const testimonials = [
   {
     testimonial:
-      "I am eager to see Ayodhya setting an example for cities across the globe by demonstrating how sustainable development principles can keep pace with modern technology to create a resilient urban environment.",
+      "I am eager to see Delhi setting an example for cities across the globe by demonstrating how sustainable development principles can keep pace with modern technology to create a resilient urban environment.",
     name: "Arjun Mehta",
     position: "Urban Planner",
     image: "https://randomuser.me/api/portraits/men/32.jpg",
